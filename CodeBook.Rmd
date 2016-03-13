@@ -1,0 +1,40 @@
+---
+title: "Code Book"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# load data
+load("for_me.RData")
+```
+
+This codebook documents the data requested in the Project Assignment of the course *Getting and Cleaning Data*. 
+
+## Raw data and design
+The raw data provided for the project assignment comes from Human Activity Recognition experiments using smartphones. The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING UPSTAIRS, WALKING DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz were captured. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+
+A full description is available at the site where the data was obtained: (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
+
+## Tidy data
+Tidy data is provided in the **tidyData.txt** text data file. This file was obtained from the  execution of the **run_analysis.R** script. This script reads the raw data provided for the Project Assignment and performs all the tasks requested, including the generation of two text data files: **tidyData.txt** and **tidyData_means**. A description ob both follows.
+
+### tidyData.txt
+The file **tidyData.txt** includes the following three key variables: ```r names(tidyData)[1:3]```; these are, respectively:  
+* an indicator of the observations set: ```r unique(as.character(tidyData$set))```   
+* a subject identifier  
+* an activity indicator: ```r unique(as.character(tidyData$activity))```  
+
+All subsequent variables correspond to set-subject-activity-specific means and standard deviations (std) of measurements taken inthe experiment. Variable names are composed of measurement acronyms, the aggregation statistic (mean or std), and the axis (X,Y or Z) for directional measurements. A short description for each variable follows.
+
+```{r describe,echo=FALSE, message=FALSE, warning=FALSE, comment=NA, results='markup'}
+require(Hmisc)
+describe(tidyData)
+```
+
+### tidyData_means.txt
+The file **tidyData_means.txt** includes the same three key variables (set, subject and activity), and set-subject-activity-specific means of variables in **tidyData.txt**. A short description for each variable follows.
+```{r describe2,echo=FALSE, message=FALSE, warning=FALSE, comment=NA, results='markup'}
+require(Hmisc)
+describe(tidyData_means)
+```
